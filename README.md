@@ -27,3 +27,23 @@ O programa gera automaticamente um arquivo CSV com o log da missão.
 cd ../RoboSalvamento.Tests
 dotnet test
 ```
+
+## 🎬 RoboVisualizador
+
+O projeto **RoboVisualizador** executa o projeto RoboSalvamento automaticamente e realiza uma animação no mapa de acordo com os logs gerados, permitindo visualizar exatamente o que o robô faz durante a missão.
+
+### Como usar o Visualizador:
+
+```bash
+cd RoboVisualizador
+dotnet run "../RoboSalvamento.Tests/TestData/3x5.txt"
+```
+
+### Funcionalidades do Visualizador:
+
+- ✅ **Execução automática**: Executa o RoboSalvamento automaticamente para gerar o CSV
+- ✅ **Animação em tempo real**: Mostra o robô se movendo pelo labirinto
+- ✅ **Informações detalhadas**: Posição, direção e estado da carga
+- ✅ **Sensores**: Exibe leituras dos sensores em tempo real
+- ✅ **Interface colorida**: Cores diferentes para cada elemento do mapa
+- ✅ **Símbolos direcionais**: Robô com símbolos direcionais (^ > v <)
