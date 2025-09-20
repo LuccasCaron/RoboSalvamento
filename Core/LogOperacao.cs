@@ -1,5 +1,3 @@
-using RoboSalvamento.Core;
-
 namespace RoboSalvamento.Core;
 
 /// <summary>
