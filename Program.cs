@@ -19,7 +19,7 @@ try
 {
     var mapa = new Mapa(arquivoMapa);
     var simulador = new SimuladorAmbienteVirtual(mapa);
-    var log = new LogOperacaoMelhorado(arquivoMapa);
+    var log = new LogOperacao(arquivoMapa);
     var algoritmo = new AlgoritmoBFS(simulador, log);
 
     algoritmo.ExecutarMissao();

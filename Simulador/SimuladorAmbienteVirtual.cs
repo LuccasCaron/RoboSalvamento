@@ -1,5 +1,4 @@
 using RoboSalvamento.Core;
-using RoboSalvamento.Extensions;
 
 namespace RoboSalvamento.Simulador;
 
@@ -9,25 +8,36 @@ namespace RoboSalvamento.Simulador;
 /// </summary>
 public class SimuladorAmbienteVirtual
 {
+
+    #region Constructor
+
+    public SimuladorAmbienteVirtual(Mapa mapa)
+    {
+        _mapa = mapa ?? throw new ArgumentNullException(nameof(mapa));
+        _log = new LogOperacao($"mapa_{DateTime.Now:yyyyMMdd_HHmmss}");
+        InicializarRobo();
+    }
+
+    #endregion
+
+    #region Properties
+
     private readonly Mapa _mapa;
     private Posicao _posicaoRobo = null!;
     private EDirecao _direcaoRobo;
     private bool _humanoColetado;
     private bool _missaoCompleta;
-    private readonly LogOperacaoMelhorado _log;
-
-    public SimuladorAmbienteVirtual(Mapa mapa)
-    {
-        _mapa = mapa ?? throw new ArgumentNullException(nameof(mapa));
-        _log = new LogOperacaoMelhorado($"mapa_{DateTime.Now:yyyyMMdd_HHmmss}");
-        InicializarRobo();
-    }
+    private readonly LogOperacao _log;
 
     public Posicao PosicaoRobo => _posicaoRobo;
     public EDirecao DirecaoRobo => _direcaoRobo;
     public bool HumanoColetado => _humanoColetado;
     public bool MissaoCompleta => _missaoCompleta;
-    public LogOperacaoMelhorado Log => _log;
+    public LogOperacao Log => _log;
+
+    #endregion
+
+    #region Private Methods
 
     private void InicializarRobo()
     {
@@ -219,5 +229,6 @@ public class SimuladorAmbienteVirtual
         return _mapa.Labirinto[posicao.Linha, posicao.Coluna] == '@';
     }
 
+    #endregion
 
 }

@@ -1,6 +1,4 @@
-﻿using RoboSalvamento.Core;
-
-namespace RoboSalvamento.Extensions;
+﻿namespace RoboSalvamento.Core;
 
 public static class DirecaoExtensions
 {

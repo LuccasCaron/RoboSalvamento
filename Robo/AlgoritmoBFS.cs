@@ -1,24 +1,34 @@
 using RoboSalvamento.Core;
-using RoboSalvamento.Extensions;
 using RoboSalvamento.Simulador;
 
 namespace RoboSalvamento.Robo;
 
 public class AlgoritmoBFS
 {
+
+    #region Properties
+
     private readonly SimuladorAmbienteVirtual _simulador;
-    private readonly LogOperacaoMelhorado _log;
+    private readonly LogOperacao _log;
     private readonly HashSet<Posicao> _posicoesVisitadas;
 
     private Posicao _posicaoEntrada = null!;
     private Posicao _posicaoHumano = null!;
 
-    public AlgoritmoBFS(SimuladorAmbienteVirtual simulador, LogOperacaoMelhorado log)
+    #endregion
+
+    #region Constructor
+
+    public AlgoritmoBFS(SimuladorAmbienteVirtual simulador, LogOperacao log)
     {
         _simulador = simulador ?? throw new ArgumentNullException(nameof(simulador));
         _log = log ?? throw new ArgumentNullException(nameof(log));
         _posicoesVisitadas = new HashSet<Posicao>();
     }
+
+    #endregion
+
+    #region Private Methods
 
     /// <summary>
     /// Executa a missão completa de busca e salvamento usando BFS.
@@ -32,32 +42,32 @@ public class AlgoritmoBFS
 
             // Encontrar o humano usando BFS
             var caminhoParaHumano = BuscarHumanoComBFS();
-            
+
             if (caminhoParaHumano != null && caminhoParaHumano.Count > 0)
             {
-                
+
                 // Executar o caminho para chegar próximo ao humano (sem atropelar)
                 var caminhoSeguro = new List<Posicao>(caminhoParaHumano);
                 caminhoSeguro.RemoveAt(caminhoSeguro.Count - 1); // Remove a posição do humano
                 ExecutarCaminhoRapido(caminhoSeguro);
-                
+
                 // Girar para ficar de frente para o humano
                 var direcaoParaHumano = CalcularDirecaoParaPosicao(_simulador.PosicaoRobo, _posicaoHumano);
                 while (_simulador.DirecaoRobo != direcaoParaHumano)
                 {
                     Girar();
                 }
-                
+
                 // Pegar o humano
                 PegarHumano();
-                
+
                 // Retornar usando o caminho reverso
                 var caminhoRetorno = new List<Posicao>(caminhoParaHumano);
                 caminhoRetorno.Reverse();
                 caminhoRetorno.RemoveAt(0); // Remove posição atual (onde está o humano)
-                
+
                 ExecutarCaminhoRapido(caminhoRetorno);
-                
+
                 // Ejetar o humano
                 EjetarHumano();
             }
@@ -104,7 +114,7 @@ public class AlgoritmoBFS
             }
 
             var vizinhos = ObterVizinhosValidos(posicaoAtual);
-            
+
             foreach (var vizinho in vizinhos)
             {
                 if (!visitados.Contains(vizinho))
@@ -123,7 +133,7 @@ public class AlgoritmoBFS
 
         var caminho = new List<Posicao>();
         var posicaoAtualCaminho = _posicaoHumano;
-        
+
         while (posicaoAtualCaminho != null)
         {
             caminho.Add(posicaoAtualCaminho);
@@ -131,13 +141,13 @@ public class AlgoritmoBFS
         }
 
         caminho.Reverse();
-        
+
         return caminho;
     }
 
     private bool PosicaoEhHumano(Posicao posicao)
     {
-        var campoMapa = typeof(SimuladorAmbienteVirtual).GetField("_mapa", 
+        var campoMapa = typeof(SimuladorAmbienteVirtual).GetField("_mapa",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var mapa = (Mapa)campoMapa!.GetValue(_simulador)!;
         return mapa.Labirinto[posicao.Linha, posicao.Coluna] == '@';
@@ -148,14 +158,14 @@ public class AlgoritmoBFS
         var vizinhos = new List<Posicao>();
         var direcoes = new[] { EDirecao.Norte, EDirecao.Sul, EDirecao.Leste, EDirecao.Oeste };
 
-        var campoMapa = typeof(SimuladorAmbienteVirtual).GetField("_mapa", 
+        var campoMapa = typeof(SimuladorAmbienteVirtual).GetField("_mapa",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var mapa = (Mapa)campoMapa!.GetValue(_simulador)!;
 
         foreach (var direcao in direcoes)
         {
             var vizinho = direcao.ObterPosicaoFrente(posicao);
-            
+
             if (vizinho.Linha >= 0 && vizinho.Linha < mapa.QuantidadeDeLinhas &&
                 vizinho.Coluna >= 0 && vizinho.Coluna < mapa.QuantidadeDeColunas)
             {
@@ -177,14 +187,14 @@ public class AlgoritmoBFS
         {
             var posicaoAtual = _simulador.PosicaoRobo;
             var proximaPosicao = caminho[i];
-            
+
             var direcaoNecessaria = CalcularDirecaoParaPosicao(posicaoAtual, proximaPosicao);
-            
+
             while (_simulador.DirecaoRobo != direcaoNecessaria)
             {
                 Girar();
             }
-            
+
             Avancar();
         }
     }
@@ -232,4 +242,7 @@ public class AlgoritmoBFS
 
         return _simulador.DirecaoRobo;
     }
+
+    #endregion
+
 }

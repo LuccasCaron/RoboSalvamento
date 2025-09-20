@@ -30,13 +30,13 @@ public class RegistroLogMelhorado
 /// <summary>
 /// Sistema de log melhorado com funcionalidades avançadas.
 /// </summary>
-public class LogOperacaoMelhorado
+public class LogOperacao
 {
     private readonly List<RegistroLogMelhorado> _registros;
     private readonly string _nomeArquivo;
     private int _contadorComandos = 0;
 
-    public LogOperacaoMelhorado(string nomeArquivoMapa)
+    public LogOperacao(string nomeArquivoMapa)
     {
         _registros = new List<RegistroLogMelhorado>();
         _nomeArquivo = Path.ChangeExtension(nomeArquivoMapa, ".csv");

@@ -1,19 +1,30 @@
 ﻿using RoboSalvamento.Core;
 
-namespace RoboSalvamento;
+namespace RoboSalvamento.Simulador;
 
 public class Mapa
 {
+
+    #region Constructor
+
     public Mapa(string caminhoDoArquivo)
     {
         CarregarArquivo(caminhoDoArquivo);
     }
+
+    #endregion
+
+    #region Properties
 
     public char[,] Labirinto { get; private set; } = null!;
     public int QuantidadeDeLinhas { get; private set; }
     public int QuantidadeDeColunas { get; private set; }
     public Posicao Entrada { get; private set; } = null!;
     public Posicao Humano { get; private set; } = null!;
+
+    #endregion
+
+    #region Private Methods
 
     private void CarregarArquivo(string caminhoDoArquivo)
     {
@@ -85,7 +96,7 @@ public class Mapa
                 ExibirCaractereColorido(caractere);
             }
 
-            Console.WriteLine(); 
+            Console.WriteLine();
         }
 
         Console.WriteLine("═══════════════════");
@@ -127,5 +138,7 @@ public class Mapa
 
         Console.ResetColor(); // Volta cor normal
     }
+
+    #endregion
 
 }
