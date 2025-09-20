@@ -7,7 +7,7 @@ Sistema embarcado para robô de salvamento que busca e resgata humanos perdidos 
 ```bash
 # Clonar o repositório
 git clone <url-do-repositorio>
-cd ADS-1/RoboSalvamento
+cd RoboSalvamento-Servi-os-Cognitivos/RoboSalvamento
 
 # Executar o programa
 dotnet run "caminho/para/arquivo.txt"
