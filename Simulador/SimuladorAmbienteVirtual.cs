@@ -57,16 +57,16 @@ public class SimuladorAmbienteVirtual
             case EComandoRobo.LIGAR:
                 return LerSensores(comando);
 
-            case EComandoRobo.Avancar:
+            case EComandoRobo.A:
                 return Avancar();
 
-            case EComandoRobo.Girar90GrausDireita:
+            case EComandoRobo.G:
                 return Girar();
 
-            case EComandoRobo.PegarHumano:
+            case EComandoRobo.P:
                 return PegarHumano();
 
-            case EComandoRobo.EjetarHumano:
+            case EComandoRobo.E:
                 return EjetarHumano();
 
             default:
@@ -91,13 +91,13 @@ public class SimuladorAmbienteVirtual
         }
 
         _posicaoRobo = proximaPosicao;
-        return LerSensores(EComandoRobo.Avancar);
+        return LerSensores(EComandoRobo.A);
     }
 
     private RegistroLogMelhorado Girar()
     {
         _direcaoRobo = _direcaoRobo.GirarDireita();
-        return LerSensores(EComandoRobo.Girar90GrausDireita);
+        return LerSensores(EComandoRobo.G);
     }
 
     private RegistroLogMelhorado PegarHumano()
@@ -111,7 +111,7 @@ public class SimuladorAmbienteVirtual
         }
 
         _humanoColetado = true;
-        return LerSensores(EComandoRobo.PegarHumano);
+        return LerSensores(EComandoRobo.P);
     }
 
     private RegistroLogMelhorado EjetarHumano()
@@ -130,20 +130,16 @@ public class SimuladorAmbienteVirtual
 
         _humanoColetado = false;
         _missaoCompleta = true;
-        return LerSensores(EComandoRobo.EjetarHumano);
+        return LerSensores(EComandoRobo.E);
     }
 
     private RegistroLogMelhorado LerSensores(EComandoRobo comando)
     {
-        // 🚨 VALIDAÇÃO CRÍTICA: Verificar beco sem saída após coleta
-        if (_humanoColetado && comando != EComandoRobo.PegarHumano)
+        if (_humanoColetado && comando != EComandoRobo.P)
         {
             var sensorEsq = LerSensorEsquerdo();
             var sensorDir = LerSensorDireito();
             var sensorFrente = LerSensorFrente();
-
-            Console.WriteLine($"      🔍 Validação claustrofobia em {_posicaoRobo} direção {_direcaoRobo}: Esq={sensorEsq}, Dir={sensorDir}, Frente={sensorFrente}");
-            Console.WriteLine($"      🔍 Comparação: Esq==PAREDE? {sensorEsq == ELeituraSensor.PAREDE}, Dir==PAREDE? {sensorDir == ELeituraSensor.PAREDE}, Frente==PAREDE? {sensorFrente == ELeituraSensor.PAREDE}");
 
             if (sensorEsq == ELeituraSensor.PAREDE &&
                 sensorDir == ELeituraSensor.PAREDE &&
@@ -223,90 +219,5 @@ public class SimuladorAmbienteVirtual
         return _mapa.Labirinto[posicao.Linha, posicao.Coluna] == '@';
     }
 
-    public void ExibirMapaComRobo()
-    {
-        Console.WriteLine($"\n🤖 POSIÇÃO ATUAL: {_posicaoRobo} | DIREÇÃO: {_direcaoRobo} | CARGA: {(_humanoColetado ? "COM_HUMANO" : "SEM_CARGA")}");
-        Console.WriteLine("═══════════════════");
 
-        for (int i = 0; i < _mapa.QuantidadeDeLinhas; i++)
-        {
-            Console.Write($"{i:D2} │ ");
-
-            for (int j = 0; j < _mapa.QuantidadeDeColunas; j++)
-            {
-                var posicaoAtual = new Posicao(i, j);
-
-                // Se é a posição do robô, mostrar o robô com direção
-                if (posicaoAtual.Equals(_posicaoRobo))
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    char simboloRobo = _direcaoRobo switch
-                    {
-                        EDirecao.Norte => '↑',
-                        EDirecao.Leste => '→',
-                        EDirecao.Sul => '↓',
-                        EDirecao.Oeste => '←',
-                        _ => '?'
-                    };
-                    Console.Write(simboloRobo);
-                    Console.ResetColor();
-                }
-                else
-                {
-                    // Mostrar o caractere normal do mapa
-                    char caractere = _mapa.Labirinto[i, j];
-
-                    // Se o humano foi coletado, não mostrar @ no mapa
-                    if (caractere == '@' && _humanoColetado)
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write('·');
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        ExibirCaractereColorido(caractere);
-                    }
-                }
-            }
-            Console.WriteLine();
-        }
-        Console.WriteLine("═══════════════════");
-    }
-
-    private static void ExibirCaractereColorido(char c)
-    {
-        switch (c)
-        {
-            case 'X': // Parede
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write('█');
-                break;
-            case '.': // Espaço livre
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write('·');
-                break;
-            case 'E': // Entrada
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write('E');
-                break;
-            case '@': // Humano
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write('@');
-                break;
-            case ' ': // Espaço vazio
-                Console.Write(' ');
-                break;
-            default: // Caractere desconhecido
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write('?');
-                break;
-        }
-        Console.ResetColor();
-    }
-
-    public void SalvarLogs()
-    {
-        _log.SalvarArquivos();
-    }
 }

@@ -52,7 +52,7 @@ public class CasosTesteProprios
         var mapa = new Mapa(arquivo);
         var simulador = new SimuladorAmbienteVirtual(mapa);
         var log = new LogOperacaoMelhorado(arquivo);
-        var algoritmo = new AlgoritmoBuscaInteligenteV2(simulador, log);
+        var algoritmo = new AlgoritmoBFS(simulador, log);
         
         Console.WriteLine("   Mapa carregado:");
         mapa.ExibirMapa();
@@ -87,7 +87,7 @@ public class CasosTesteProprios
         var mapa = new Mapa(arquivo);
         var simulador = new SimuladorAmbienteVirtual(mapa);
         var log = new LogOperacaoMelhorado(arquivo);
-        var algoritmo = new AlgoritmoBuscaInteligenteV2(simulador, log);
+        var algoritmo = new AlgoritmoBFS(simulador, log);
         
         Console.WriteLine("   Mapa carregado:");
         mapa.ExibirMapa();
@@ -138,7 +138,7 @@ public class CasosTesteProprios
         var mapa = new Mapa(arquivo);
         var simulador = new SimuladorAmbienteVirtual(mapa);
         var log = new LogOperacaoMelhorado(arquivo);
-        var algoritmo = new AlgoritmoBuscaInteligenteV2(simulador, log);
+        var algoritmo = new AlgoritmoBFS(simulador, log);
         
         Console.WriteLine("   Mapa carregado (apenas primeiras linhas):");
         mapa.ExibirMapa();
@@ -214,7 +214,7 @@ public class CasosTesteProprios
         var mapa = new Mapa(arquivo);
         var simulador = new SimuladorAmbienteVirtual(mapa);
         var log = new LogOperacaoMelhorado(arquivo);
-        var algoritmo = new AlgoritmoBuscaInteligenteV2(simulador, log);
+        var algoritmo = new AlgoritmoBFS(simulador, log);
         
         Console.WriteLine("   Mapa carregado:");
         mapa.ExibirMapa();
@@ -234,7 +234,7 @@ public class CasosTesteProprios
         var mapa = new Mapa(nomeArquivo);
         var simulador = new SimuladorAmbienteVirtual(mapa);
         var log = new LogOperacaoMelhorado(nomeArquivo);
-        var algoritmo = new AlgoritmoBuscaInteligenteV2(simulador, log);
+        var algoritmo = new AlgoritmoBFS(simulador, log);
         
         algoritmo.ExecutarMissao();
         log.SalvarArquivos();

@@ -52,7 +52,7 @@ public class TestesSeguranca
         // Tentar avançar para uma parede (deve dar erro)
         try
         {
-            simulador.ExecutarComando(EComandoRobo.Avancar);
+            simulador.ExecutarComando(EComandoRobo.A);
             throw new Exception("❌ FALHA: Deveria ter disparado alarme de colisão!");
         }
         catch (DomainException ex) when (ex.Message.Contains("ALARME DE COLISÃO"))
@@ -77,7 +77,7 @@ public class TestesSeguranca
         // Tentar avançar para o humano (deve dar erro)
         try
         {
-            simulador.ExecutarComando(EComandoRobo.Avancar);
+            simulador.ExecutarComando(EComandoRobo.A);
             throw new Exception("❌ FALHA: Deveria ter disparado alarme de atropelamento!");
         }
         catch (DomainException ex) when (ex.Message.Contains("ALARME DE ATROPELAMENTO"))
@@ -100,13 +100,13 @@ public class TestesSeguranca
         simulador.ExecutarComando(EComandoRobo.LIGAR);
         
         // Avançar para pegar o humano
-        simulador.ExecutarComando(EComandoRobo.Avancar);
-        simulador.ExecutarComando(EComandoRobo.PegarHumano);
+        simulador.ExecutarComando(EComandoRobo.A);
+        simulador.ExecutarComando(EComandoRobo.P);
         
         // Tentar avançar para um beco sem saída (deve dar erro)
         try
         {
-            simulador.ExecutarComando(EComandoRobo.Avancar);
+            simulador.ExecutarComando(EComandoRobo.A);
             throw new Exception("❌ FALHA: Deveria ter disparado alarme de beco sem saída!");
         }
         catch (DomainException ex) when (ex.Message.Contains("ALARME DE BECO SEM SAÍDA"))
@@ -131,7 +131,7 @@ public class TestesSeguranca
         // Tentar ejetar sem ter coletado o humano (deve dar erro)
         try
         {
-            simulador.ExecutarComando(EComandoRobo.EjetarHumano);
+            simulador.ExecutarComando(EComandoRobo.E);
             throw new Exception("❌ FALHA: Deveria ter disparado alarme de ejeção sem humano!");
         }
         catch (DomainException ex) when (ex.Message.Contains("ALARME DE EJEÇÃO INVÁLIDA"))
@@ -156,7 +156,7 @@ public class TestesSeguranca
         // Tentar pegar humano sem ter humano à frente (deve dar erro)
         try
         {
-            simulador.ExecutarComando(EComandoRobo.PegarHumano);
+            simulador.ExecutarComando(EComandoRobo.P);
             throw new Exception("❌ FALHA: Deveria ter disparado alarme de coleta sem humano!");
         }
         catch (DomainException ex) when (ex.Message.Contains("ALARME DE COLETA INVÁLIDA"))

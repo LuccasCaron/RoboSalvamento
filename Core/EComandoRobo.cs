@@ -3,8 +3,8 @@
 public enum EComandoRobo
 {
     LIGAR,
-    Avancar, // Avançar
-    Girar90GrausDireita, // Girar 90° direita
-    PegarHumano, // Pegar humano
-    EjetarHumano  // Ejetar humano
+    A, // Avançar
+    G, // Girar 90° direita
+    P, // Pegar humano
+    E  // Ejetar humano
 }
