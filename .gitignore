@@ -19,6 +19,8 @@ bld/
 *.user
 *.userosscache
 *.sln.docstates
+*.suo
+*.tmp
 
 # Test results
 TestResults/
