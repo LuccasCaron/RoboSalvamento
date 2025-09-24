@@ -30,7 +30,7 @@ dotnet test
 
 ## 🎬 RoboVisualizador
 
-O projeto **RoboVisualizador** executa o projeto RoboSalvamento automaticamente e realiza uma animação no mapa de acordo com os logs gerados, permitindo visualizar exatamente o que o robô faz durante a missão.
+O projeto **RoboVisualizador** é um projeto em .NET 9 que executa o projeto RoboSalvamento automaticamente e realiza uma animação no mapa de acordo com os logs gerados, permitindo visualizar exatamente o que o robô faz durante a missão.
 
 ### Como usar o Visualizador:
 
