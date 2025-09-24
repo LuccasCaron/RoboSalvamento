@@ -19,15 +19,15 @@
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\RoboSalvamento\RoboSalvamento.csproj" />
-  </ItemGroup>
-
+	
   <ItemGroup>
     <None Include="TestData\*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\RoboSalvamento\RoboSalvamento.csproj" />
   </ItemGroup>
 
 </Project>

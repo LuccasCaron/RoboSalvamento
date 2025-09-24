@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
 
 namespace RoboVisualizador
 {
@@ -30,7 +26,7 @@ namespace RoboVisualizador
                 // Executar o RoboSalvamento para gerar o CSV
                 Console.WriteLine("🤖 Executando RoboSalvamento...");
                 var arquivoCsv = ExecutarRoboSalvamento(arquivoMapa);
-                
+
                 if (arquivoCsv == null)
                 {
                     Console.WriteLine("❌ Falha ao executar RoboSalvamento!");
@@ -57,7 +53,7 @@ namespace RoboVisualizador
             {
                 // Caminho para o executável do RoboSalvamento
                 var roboSalvamentoPath = Path.Combine("..", "RoboSalvamento", "bin", "Debug", "net8.0", "RoboSalvamento.exe");
-                
+
                 if (!File.Exists(roboSalvamentoPath))
                 {
                     Console.WriteLine($"❌ Executável do RoboSalvamento não encontrado em: {roboSalvamentoPath}");
@@ -98,7 +94,7 @@ namespace RoboVisualizador
 
                 // O CSV é gerado no mesmo diretório do arquivo de mapa
                 var arquivoCsv = Path.ChangeExtension(arquivoMapa, ".csv");
-                
+
                 if (!File.Exists(arquivoCsv))
                 {
                     Console.WriteLine($"❌ Arquivo CSV não foi gerado: {arquivoCsv}");
@@ -182,7 +178,7 @@ namespace RoboVisualizador
             for (int i = 0; i < _log.Count; i++)
             {
                 var registro = _log[i];
-                
+
                 if (registro.Comando == "A")
                 {
                     posicaoRobo = Avancar(posicaoRobo, direcaoRobo);

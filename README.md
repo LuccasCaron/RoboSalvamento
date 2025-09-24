@@ -6,8 +6,8 @@ Sistema embarcado para robô de salvamento que busca e resgata humanos perdidos 
 
 ```bash
 # Clonar o repositório
-git clone <url-do-repositorio>
-cd RoboSalvamento-Servi-os-Cognitivos/RoboSalvamento
+git clone https://github.com/LuccasCaron/RoboSalvamento.git
+cd RoboSalvamento/src/RoboSalvamento
 
 # Executar o programa
 dotnet run "caminho/para/arquivo.txt"
@@ -35,8 +35,8 @@ O projeto **RoboVisualizador** executa o projeto RoboSalvamento automaticamente 
 ### Como usar o Visualizador:
 
 ```bash
-cd RoboVisualizador
-dotnet run "../RoboSalvamento.Tests/TestData/3x5.txt"
+cd src/RoboVisualizador
+dotnet run "caminho/para/arquivo.txt"
 ```
 
 ### Funcionalidades do Visualizador:
